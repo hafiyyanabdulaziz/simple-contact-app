@@ -1,7 +1,11 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+
 import UserCircleIcon from "../../assets/icons/UserCircleIcon";
+import { setModalContactClose } from "../../redux/modalContactSlice";
 
 const Content = () => {
+  const dispatch = useDispatch();
   return (
     <div className='flex flex-col gap-5 my-5'>
       <label className='input input-bordered flex items-center gap-2'>
@@ -29,7 +33,11 @@ const Content = () => {
         <form method='dialog'>
           {/* if there is a button, it will close the modal */}
           <button className='btn btn-primary mr-5'>Save</button>
-          <button className='btn'>Close</button>
+          <button
+            className='btn'
+            onClick={() => dispatch(setModalContactClose())}>
+            Close
+          </button>
         </form>
       </div>
     </div>
