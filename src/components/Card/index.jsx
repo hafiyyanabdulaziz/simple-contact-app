@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import EditIcon from "../../assets/icons/EditIcon";
@@ -7,6 +7,12 @@ import { openModalEditContact } from "../../redux/modalContactSlice";
 const Card = ({ id, firstName, lastName, age, avatar }) => {
   const dispatch = useDispatch();
   const [avatarUrl, setAvatarUrl] = useState(avatar);
+
+  useEffect(() => {
+    setAvatarUrl(avatar);
+
+    return () => {};
+  }, [avatar]);
 
   return (
     <div className='w-full h-full flex items-center justify-center'>

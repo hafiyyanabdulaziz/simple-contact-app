@@ -34,6 +34,28 @@ export const addContacts = createAsyncThunk(
   },
 );
 
+export const editContacts = createAsyncThunk(
+  "contact/edit",
+  async (data, { dispatch, rejectWithValue }) => {
+    const newData = { ...data };
+    delete newData.id;
+    try {
+      dispatch(setIsLoading(true));
+      const response = await axios.put(
+        `https://contact.herokuapp.com/contact/${data.id}`,
+        newData,
+      );
+      console.log({ data: response.data });
+      dispatch(setIsLoading(false));
+      return {
+        response: response.data,
+      };
+    } catch (error) {
+      rejectWithValue(error);
+    }
+  },
+);
+
 export const contactSlice = createSlice({
   name: "contact",
   initialState,
@@ -69,6 +91,17 @@ export const contactSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(addContacts.rejected, (state, action) => {
+        state.isLoading = false;
+      });
+
+    builder
+      .addCase(editContacts.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(editContacts.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(editContacts.rejected, (state, action) => {
         state.isLoading = false;
       });
   },

@@ -32,7 +32,7 @@ export const modalContact = createSlice({
     },
     openModalNewContact: (state, action) => {
       state.isOpen = true;
-      state.title = "Edit Contact";
+      state.title = "Add Contact";
       state.isNew = true;
     },
     openModalEditContact: (state, action) => {
