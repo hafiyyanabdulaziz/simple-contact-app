@@ -6,11 +6,13 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Search from "./components/Search";
 import Modal from "./components/Modal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllContacts } from "./redux/contactSlice";
 
 const App = () => {
   const dispatch = useDispatch();
+  const { data } = useSelector((state) => state.contact);
+
   useEffect(() => {
     dispatch(getAllContacts());
 
@@ -20,17 +22,22 @@ const App = () => {
   return (
     <div className=''>
       <Header />
-      {/* <div className='divider'></div> */}
       <main className='min-h-screen container mx-auto '>
         <div className='flex justify-center my-5'>
           <Search />
         </div>
-        <div className='grid grid-cols-4 gap-5 '>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+        <div className='grid grid-cols-2 md:grid-cols-4 gap-5 '>
+          {data.map((contact, index) => {
+            return (
+              <Card
+                id={contact?.id}
+                avatar={contact?.photo}
+                name={`${contact.firstName} ${contact.lastName}`}
+                age={contact?.age}
+                key={index}
+              />
+            );
+          })}
         </div>
         <Modal />
       </main>
