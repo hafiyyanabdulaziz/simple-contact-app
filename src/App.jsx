@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Modal from "./components/Modal";
 import Search from "./components/Search";
 import { getAllContacts } from "./redux/contactSlice";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const App = () => {
         {isOpen ? <Modal /> : null}
       </main>
       <Footer />
+      <ToastContainer />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { setIsLoading } from "./modalContactSlice";
+import { toast } from "react-toastify";
 
 const initialState = {
   value: 0,
@@ -25,10 +26,12 @@ export const addContacts = createAsyncThunk(
         data,
       );
       dispatch(setIsLoading(false));
+      toast.success("Add Data Successfully");
       return {
         response: response.data,
       };
     } catch (error) {
+      toast.error("Opps something wrong!!");
       rejectWithValue(error);
     }
   },
@@ -45,12 +48,13 @@ export const editContacts = createAsyncThunk(
         `https://contact.herokuapp.com/contact/${data.id}`,
         newData,
       );
-      console.log({ data: response.data });
       dispatch(setIsLoading(false));
+      toast.success("Edit Data Successfully");
       return {
         response: response.data,
       };
     } catch (error) {
+      toast.error("Opps something wrong!!");
       rejectWithValue(error);
     }
   },
