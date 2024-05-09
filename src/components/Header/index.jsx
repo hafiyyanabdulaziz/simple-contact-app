@@ -1,9 +1,10 @@
 import React from "react";
-import SettingIcon from "../../assets/icons/SettingIcon";
 import { useDispatch, useSelector } from "react-redux";
-import { increment } from "../../redux/contactSlice";
+
 import PlusIcon from "../../assets/icons/PlusIcon";
-import { setModalContactOpen } from "../../redux/modalContactSlice";
+import SettingIcon from "../../assets/icons/SettingIcon";
+import { increment } from "../../redux/contactSlice";
+import { openModalNewContact } from "../../redux/modalContactSlice";
 
 const Header = () => {
   const count = useSelector((state) => state.contact.value);
@@ -25,7 +26,7 @@ const Header = () => {
       <div className='navbar-end'>
         <button
           className='btn btn-ghost btn-circle'
-          onClick={() => dispatch(setModalContactOpen())}>
+          onClick={() => dispatch(openModalNewContact())}>
           <PlusIcon />
         </button>
       </div>

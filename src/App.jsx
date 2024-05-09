@@ -1,17 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Card from "./components/Card";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import Search from "./components/Search";
 import Modal from "./components/Modal";
-import { useDispatch, useSelector } from "react-redux";
+import Search from "./components/Search";
 import { getAllContacts } from "./redux/contactSlice";
 
 const App = () => {
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.contact);
+  const { isOpen } = useSelector((state) => state.modalContact);
 
   useEffect(() => {
     dispatch(getAllContacts());
@@ -32,14 +33,15 @@ const App = () => {
               <Card
                 id={contact?.id}
                 avatar={contact?.photo}
-                name={`${contact.firstName} ${contact.lastName}`}
+                firstName={contact.firstName}
+                lastName={contact.lastName}
                 age={contact?.age}
                 key={index}
               />
             );
           })}
         </div>
-        <Modal />
+        {isOpen ? <Modal /> : null}
       </main>
       <Footer />
     </div>

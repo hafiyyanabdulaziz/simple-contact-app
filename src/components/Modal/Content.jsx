@@ -1,24 +1,41 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import UserCircleIcon from "../../assets/icons/UserCircleIcon";
-import { addContacts } from "../../redux/contactSlice";
+import { addContacts, getAllContacts } from "../../redux/contactSlice";
 import { convertFileToBase64 } from "../../utils";
+import { setModalContactClose } from "../../redux/modalContactSlice";
 
 const Content = () => {
+  const { data, isNew } = useSelector((state) => state.modalContact);
   const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues: !isNew ? data : null });
 
-  const onSubmit = async (data) => {
+  const onSave = async (data) => {
     const photo = await convertFileToBase64(data.photo[0]);
     const newData = { ...data, photo, age: Number(data.age) };
     dispatch(addContacts(newData));
+    dispatch(setModalContactClose());
+    dispatch(getAllContacts());
   };
+
+  // const onUpdate = async (data) => {
+  //   const photo = await convertFileToBase64(data.photo[0]);
+  //   const newData = { ...data, photo, age: Number(data.age) };
+  //   dispatch(addContacts(newData));
+  // };
+
+  // const onSubmit = (data) => {
+  //   console.log("onSubmit");
+  //   isNew ? onSave(data) : onUpdate(data);
+  // };
 
   const validationRule = {
     required: "This field is required",
@@ -27,7 +44,7 @@ const Content = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSave)}>
         <div className='flex flex-col gap-5 my-5'>
           <label className='input input-bordered flex items-center gap-2'>
             <UserCircleIcon />

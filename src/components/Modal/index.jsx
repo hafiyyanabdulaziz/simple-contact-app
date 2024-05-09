@@ -6,11 +6,11 @@ import { setModalContactClose } from "../../redux/modalContactSlice";
 import Content from "./Content";
 
 const Modal = () => {
-  const { isOpen, title } = useSelector((state) => state.modalContact);
+  const { title } = useSelector((state) => state.modalContact);
   const dispatch = useDispatch();
   return (
     <>
-      <dialog className={`modal ${isOpen ? "modal-open" : ""}`}>
+      <dialog className={`modal modal-open`}>
         <div className='modal-box'>
           <button
             className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'

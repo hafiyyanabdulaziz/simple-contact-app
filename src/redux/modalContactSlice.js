@@ -4,13 +4,21 @@ const initialState = {
   isOpen: false,
   title: "Add Contact",
   isLoading: false,
+  isNew: true,
+  data: {
+    id: null,
+    firstName: "",
+    lastName: "",
+    age: 0,
+    avatar: "",
+  },
 };
 
 export const modalContact = createSlice({
   name: "modalContact",
   initialState,
   reducers: {
-    setModalContactOpen: (state) => {
+    setModalContactOpen: (state, action) => {
       state.isOpen = true;
     },
     setModalContactClose: (state) => {
@@ -22,6 +30,17 @@ export const modalContact = createSlice({
     setIsLoading: (state, action) => {
       state.isLoading = action.payload;
     },
+    openModalNewContact: (state, action) => {
+      state.isOpen = true;
+      state.title = "Edit Contact";
+      state.isNew = true;
+    },
+    openModalEditContact: (state, action) => {
+      state.isOpen = true;
+      state.title = "Edit Contact";
+      state.isNew = false;
+      state.data = action.payload;
+    },
   },
 });
 
@@ -31,6 +50,8 @@ export const {
   setModalContactOpen,
   setIsLoading,
   setModalContactTitle,
+  openModalNewContact,
+  openModalEditContact,
 } = modalContact.actions;
 
 export default modalContact.reducer;
