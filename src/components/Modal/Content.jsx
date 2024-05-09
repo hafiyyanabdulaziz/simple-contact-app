@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import UserCircleIcon from "../../assets/icons/UserCircleIcon";
 import {
   addContacts,
+  deleteContacts,
   editContacts,
   getAllContacts,
 } from "../../redux/contactSlice";
@@ -39,6 +40,16 @@ const Content = () => {
       const newData = { ...data, photo, age: Number(data.age) };
       delete newData.avatar;
       await dispatch(editContacts(newData)).unwrap();
+      await dispatch(getAllContacts()).unwrap();
+      dispatch(setModalContactClose());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onDelete = async () => {
+    try {
+      await dispatch(deleteContacts(data.id)).unwrap();
       await dispatch(getAllContacts()).unwrap();
       dispatch(setModalContactClose());
     } catch (error) {
@@ -107,6 +118,15 @@ const Content = () => {
           <button type='submit' className='btn btn-primary'>
             {isNew ? "Save" : "Edit"}
           </button>
+
+          {!isNew ? (
+            <button
+              type='button'
+              onClick={() => onDelete()}
+              className='btn btn-error'>
+              Delete
+            </button>
+          ) : null}
         </div>
       </form>
     </div>

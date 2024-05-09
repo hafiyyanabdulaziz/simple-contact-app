@@ -60,6 +60,26 @@ export const editContacts = createAsyncThunk(
   },
 );
 
+export const deleteContacts = createAsyncThunk(
+  "contact/delete",
+  async (id, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(setIsLoading(true));
+      const response = await axios.delete(
+        `https://contact.herokuapp.com/contact/${id}`,
+      );
+      dispatch(setIsLoading(false));
+      toast.success("Delete Data Successfully");
+      return {
+        response: response.data,
+      };
+    } catch (error) {
+      toast.error("Opps something wrong!!");
+      rejectWithValue(error);
+    }
+  },
+);
+
 export const contactSlice = createSlice({
   name: "contact",
   initialState,
@@ -106,6 +126,17 @@ export const contactSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(editContacts.rejected, (state, action) => {
+        state.isLoading = false;
+      });
+
+    builder
+      .addCase(deleteContacts.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteContacts.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(deleteContacts.rejected, (state, action) => {
         state.isLoading = false;
       });
   },
