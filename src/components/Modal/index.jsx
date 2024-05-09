@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import CloseIcon from "../../assets/icons/CloseIcon";
 import { setModalContactClose } from "../../redux/modalContactSlice";
 import Content from "./Content";
-import CloseIcon from "../../assets/icons/CloseIcon";
 
 const Modal = () => {
   const { isOpen, title } = useSelector((state) => state.modalContact);

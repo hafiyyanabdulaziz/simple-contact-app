@@ -1,12 +1,22 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 
 import Card from "./components/Card";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Search from "./components/Search";
 import Modal from "./components/Modal";
+import { useDispatch } from "react-redux";
+import { getAllContacts } from "./redux/contactSlice";
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllContacts());
+
+    return () => {};
+  }, []);
+
   return (
     <div className=''>
       <Header />
