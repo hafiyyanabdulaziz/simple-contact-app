@@ -16,7 +16,7 @@ const Card = ({ id, firstName, lastName, age, avatar }) => {
 
   return (
     <div className='w-full h-full flex items-center justify-center'>
-      <div className='card w-full bg-base-100 shadow-2xl'>
+      <div className='card w-full h-full bg-base-100 shadow-2xl'>
         <button
           className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'
           onClick={() =>
