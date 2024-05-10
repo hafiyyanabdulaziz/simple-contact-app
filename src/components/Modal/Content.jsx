@@ -11,11 +11,15 @@ import {
   getAllContacts,
 } from "../../redux/contactSlice";
 import { convertFileToBase64 } from "../../utils";
-import { setModalContactClose } from "../../redux/modalContactSlice";
+import {
+  setIsLoading,
+  setModalContactClose,
+} from "../../redux/modalContactSlice";
+import LoadingWrapper from "../LoadingWrapper";
 
 // Component ini digunakan untuk add & edit
 const Content = () => {
-  const { data, isNew } = useSelector((state) => state.modalContact);
+  const { data, isNew, isLoading } = useSelector((state) => state.modalContact);
   const dispatch = useDispatch();
 
   const {
@@ -27,8 +31,10 @@ const Content = () => {
   const onSave = async (data) => {
     const photo = await convertFileToBase64(data.photo[0]);
     const newData = { ...data, photo, age: Number(data.age) };
+    dispatch(setIsLoading(true));
     await dispatch(addContacts(newData)).unwrap();
     await dispatch(getAllContacts()).unwrap();
+    dispatch(setIsLoading(false));
     dispatch(setModalContactClose());
   };
 
@@ -40,8 +46,10 @@ const Content = () => {
         : data.avatar;
       const newData = { ...data, photo, age: Number(data.age) };
       delete newData.avatar;
+      dispatch(setIsLoading(true));
       await dispatch(editContacts(newData)).unwrap();
       await dispatch(getAllContacts()).unwrap();
+      dispatch(setIsLoading(false));
       dispatch(setModalContactClose());
     } catch (error) {
       console.error(error);
@@ -50,8 +58,10 @@ const Content = () => {
 
   const onDelete = async () => {
     try {
+      dispatch(setIsLoading(true));
       await dispatch(deleteContacts(data.id)).unwrap();
       await dispatch(getAllContacts()).unwrap();
+      dispatch(setIsLoading(false));
       dispatch(setModalContactClose());
     } catch (error) {
       console.error(error);
@@ -70,7 +80,7 @@ const Content = () => {
   const showAsterik = isNew ? "*" : "";
 
   return (
-    <div>
+    <LoadingWrapper isLoading={isLoading}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='flex flex-col gap-5 my-5'>
           <label className='input input-bordered flex items-center gap-2'>
@@ -132,7 +142,7 @@ const Content = () => {
           ) : null}
         </div>
       </form>
-    </div>
+    </LoadingWrapper>
   );
 };
 

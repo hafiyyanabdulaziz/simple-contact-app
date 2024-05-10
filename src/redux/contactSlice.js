@@ -22,12 +22,10 @@ export const addContacts = createAsyncThunk(
   "contact/add",
   async (data, { dispatch, rejectWithValue }) => {
     try {
-      dispatch(setIsLoading(true));
       const response = await axios.post(
         REACT_APP_BE_URL + ENDPOINT_CONTACTS,
         data,
       );
-      dispatch(setIsLoading(false));
       toast.success("Add Data Successfully");
       return {
         response: response.data,
@@ -45,12 +43,10 @@ export const editContacts = createAsyncThunk(
     const newData = { ...data };
     delete newData.id;
     try {
-      dispatch(setIsLoading(true));
       const response = await axios.put(
         REACT_APP_BE_URL + ENDPOINT_CONTACTS + `/${data.id}`,
         newData,
       );
-      dispatch(setIsLoading(false));
       toast.success("Edit Data Successfully");
       return {
         response: response.data,
@@ -66,11 +62,9 @@ export const deleteContacts = createAsyncThunk(
   "contact/delete",
   async (id, { dispatch, rejectWithValue }) => {
     try {
-      dispatch(setIsLoading(true));
       const response = await axios.delete(
         REACT_APP_BE_URL + ENDPOINT_CONTACTS + `/${id}`,
       );
-      dispatch(setIsLoading(false));
       toast.success("Delete Data Successfully");
       return {
         response: response.data,
