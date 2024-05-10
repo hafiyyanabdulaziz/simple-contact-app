@@ -13,6 +13,7 @@ import {
 import { convertFileToBase64 } from "../../utils";
 import { setModalContactClose } from "../../redux/modalContactSlice";
 
+// Component ini digunakan untuk add & edit
 const Content = () => {
   const { data, isNew } = useSelector((state) => state.modalContact);
   const dispatch = useDispatch();

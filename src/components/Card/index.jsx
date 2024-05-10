@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import EditIcon from "../../assets/icons/EditIcon";
@@ -50,4 +50,4 @@ const Card = ({ id, firstName, lastName, age, avatar }) => {
   );
 };
 
-export default Card;
+export default memo(Card);

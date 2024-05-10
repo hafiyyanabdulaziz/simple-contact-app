@@ -38,18 +38,6 @@ const App = () => {
           <Search />
         </div>
         <div className='grid grid-cols-2 md:grid-cols-4 gap-5 '>
-          {/* {data.map((contact, index) => {
-            return (
-              <Card
-                id={contact?.id}
-                avatar={contact?.photo}
-                firstName={contact.firstName}
-                lastName={contact.lastName}
-                age={contact?.age}
-                key={index}
-              />
-            );
-          })} */}
           {isLoading ? (
             <Skeleton />
           ) : (
