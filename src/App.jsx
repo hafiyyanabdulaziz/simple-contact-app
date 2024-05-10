@@ -9,10 +9,11 @@ import Modal from "./components/Modal";
 import Search from "./components/Search";
 import { getAllContacts } from "./redux/contactSlice";
 import { ToastContainer } from "react-toastify";
+import Skeleton from "./components/Skeleton";
 
 const App = () => {
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.contact);
+  const { data, isLoading } = useSelector((state) => state.contact);
   const { isOpen } = useSelector((state) => state.modalContact);
 
   const initTheme = () => {
@@ -37,7 +38,7 @@ const App = () => {
           <Search />
         </div>
         <div className='grid grid-cols-2 md:grid-cols-4 gap-5 '>
-          {data.map((contact, index) => {
+          {/* {data.map((contact, index) => {
             return (
               <Card
                 id={contact?.id}
@@ -48,7 +49,23 @@ const App = () => {
                 key={index}
               />
             );
-          })}
+          })} */}
+          {isLoading ? (
+            <Skeleton />
+          ) : (
+            data.map((contact, index) => {
+              return (
+                <Card
+                  id={contact?.id}
+                  avatar={contact?.photo}
+                  firstName={contact.firstName}
+                  lastName={contact.lastName}
+                  age={contact?.age}
+                  key={index}
+                />
+              );
+            })
+          )}
         </div>
         {isOpen ? <Modal /> : null}
       </main>

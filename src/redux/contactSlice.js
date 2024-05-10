@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const initialState = {
   value: 0,
-  isLoading: false,
+  isLoading: true,
   data: [],
 };
 
@@ -96,49 +96,49 @@ export const contactSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllContacts.pending, (state, action) => {
-        state.isLoading = true;
-      })
+      // .addCase(getAllContacts.pending, (state, action) => {
+      //   state.isLoading = true;
+      // })
       .addCase(getAllContacts.fulfilled, (state, action) => {
         state.isLoading = false;
         state.data = action.payload.data;
-      })
-      .addCase(getAllContacts.rejected, (state, action) => {
-        state.isLoading = false;
       });
+    // .addCase(getAllContacts.rejected, (state, action) => {
+    //   state.isLoading = false;
+    // });
 
-    builder
-      .addCase(addContacts.pending, (state, action) => {
-        state.isLoading = true;
-      })
-      .addCase(addContacts.fulfilled, (state, action) => {
-        state.isLoading = false;
-      })
-      .addCase(addContacts.rejected, (state, action) => {
-        state.isLoading = false;
-      });
+    // builder
+    //   .addCase(addContacts.pending, (state, action) => {
+    //     state.isLoading = true;
+    //   })
+    //   .addCase(addContacts.fulfilled, (state, action) => {
+    //     state.isLoading = false;
+    //   })
+    //   .addCase(addContacts.rejected, (state, action) => {
+    //     state.isLoading = false;
+    //   });
 
-    builder
-      .addCase(editContacts.pending, (state, action) => {
-        state.isLoading = true;
-      })
-      .addCase(editContacts.fulfilled, (state, action) => {
-        state.isLoading = false;
-      })
-      .addCase(editContacts.rejected, (state, action) => {
-        state.isLoading = false;
-      });
+    // builder
+    //   .addCase(editContacts.pending, (state, action) => {
+    //     state.isLoading = true;
+    //   })
+    //   .addCase(editContacts.fulfilled, (state, action) => {
+    //     state.isLoading = false;
+    //   })
+    //   .addCase(editContacts.rejected, (state, action) => {
+    //     state.isLoading = false;
+    //   });
 
-    builder
-      .addCase(deleteContacts.pending, (state, action) => {
-        state.isLoading = true;
-      })
-      .addCase(deleteContacts.fulfilled, (state, action) => {
-        state.isLoading = false;
-      })
-      .addCase(deleteContacts.rejected, (state, action) => {
-        state.isLoading = false;
-      });
+    // builder
+    //   .addCase(deleteContacts.pending, (state, action) => {
+    //     state.isLoading = true;
+    //   })
+    //   .addCase(deleteContacts.fulfilled, (state, action) => {
+    //     state.isLoading = false;
+    //   })
+    //   .addCase(deleteContacts.rejected, (state, action) => {
+    //     state.isLoading = false;
+    //   });
   },
 });
 
