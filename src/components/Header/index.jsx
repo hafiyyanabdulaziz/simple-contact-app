@@ -1,24 +1,17 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import PlusIcon from "../../assets/icons/PlusIcon";
-import SettingIcon from "../../assets/icons/SettingIcon";
-import { increment } from "../../redux/contactSlice";
 import { openModalNewContact } from "../../redux/modalContactSlice";
+import Drawer from "../Drawer";
 
 const Header = () => {
-  const count = useSelector((state) => state.contact.value);
   const dispatch = useDispatch();
 
   return (
     <div className='navbar bg-base-200'>
       <div className='navbar-start'>
-        <button
-          className='btn btn-ghost btn-circle'
-          onClick={() => dispatch(increment())}>
-          <SettingIcon />
-        </button>
-        <p>{count}</p>
+        <Drawer />
       </div>
       <div className='navbar-center '>
         <h1 className='text-xl font-bold'>Hafi Contacts</h1>

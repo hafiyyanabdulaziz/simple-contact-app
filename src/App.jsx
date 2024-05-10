@@ -15,8 +15,16 @@ const App = () => {
   const { data } = useSelector((state) => state.contact);
   const { isOpen } = useSelector((state) => state.modalContact);
 
+  const initTheme = () => {
+    document.documentElement.setAttribute(
+      "data-theme",
+      localStorage.getItem("theme") || "cyberpunk",
+    );
+  };
+
   useEffect(() => {
     dispatch(getAllContacts());
+    initTheme();
 
     return () => {};
   }, []);

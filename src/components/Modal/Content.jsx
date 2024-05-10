@@ -97,6 +97,8 @@ const Content = () => {
             <input
               type='number'
               className='grow'
+              min={1}
+              max={100}
               placeholder={`Age${showAsterik}`}
               {...register("age", validationRule)}
             />
